@@ -110,5 +110,7 @@ D0[g_] :=
 Print[DA2m3A2m2[Coth[x y]] /. {x -> 2., y -> 2.} // N // AbsoluteTiming]
 Print[DG2m3m1A2m3[DA2m3A2m2[Coth[x y]]] /. {x -> 2., y -> 2.} // 
   N // AbsoluteTiming]
+Print[D0[DG2m3m1A2m3[DA2m3A2m2[Coth[x y]]], 2., 2.] /. {x -> 2., y -> 2.} // 
+  N // AbsoluteTiming]
   
 Exit[]
