@@ -54,4 +54,19 @@ PsiA2m1NOuv[A_, B_] := PsiA2m1 /. {U -> A, V -> B} // FullSimplify;
 expr = PsiA2m1NOuv[0.5, 0.1]; // AbsoluteTiming
 Print["The size of PsiA2m1NOuv is: " <> ToString[ByteCount[expr]]]
 
+
+(**** Obtain the Baker-Akhiezer function PsiA2m2 ****)
+Clear[g]
+<< DA2m2A2m1.mx; 
+g[x_, y_] := Evaluate[PsiA2m1];
+PsiA2m2 = DA2m2A2m1;
+Clear[g]
+Print["The size of PsiA2m2 is: " <> ToString[ByteCount[PsiA2m2]]]
+
+PsiA2m2NOuv[A_, B_] := N[PsiA2m2 /. {U -> A, V -> B}];
+expr = PsiA2m2NOuv[0.22, 0.1]; 
+Print["The size of PsiA2m2NOuv is: " <> ToString[ByteCount[expr]]]
+
+
+
 Exit[]
