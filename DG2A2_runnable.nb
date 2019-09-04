@@ -1,0 +1,85 @@
+(* The vectors *)
+w = 1;
+b[1] = w {Sqrt[2], 0};
+b[2] = w {Sqrt[2]/2, Sqrt[6]/2};
+b[3] = w {-Sqrt[2]/2, Sqrt[6]/2};
+a[3] = w {3 Sqrt[2]/2, Sqrt[6]/2};
+a[2] =  w {-3 Sqrt[2]/2, Sqrt[6]/2};
+a[1] = w {0, Sqrt[6]};
+
+(* The inner products with {x, y} *)
+b1 = b[1].{x, y};
+b2 = b[2].{x, y}; 
+b3 = b[3].{x, y};  
+a1 = a[1].{x, y};
+a2 = a[2].{x, y}; 
+a3 = a[3].{x, y};   
+
+(* The associated operators *)
+Db1 = b[1][[1]] d1 + b[1][[2]] d2;
+Db2 = b[2][[1]] d1 + b[2][[2]] d2;
+Db3 = b[3][[1]] d1 + b[3][[2]] d2;
+
+(* The associated operators *)
+Da1 = a[1][[1]] d1 + a[1][[2]] d2;
+Da2 = a[2][[1]] d1 + a[2][[2]] d2;
+Da3 = a[3][[1]] d1 + a[3][[2]] d2;
+
+(* Derivative of a function f in the direction of a vecor v *)
+DirectionalD[f_, v_] := v[[1]] D[f, x] + v[[2]] D[f, y];
+
+(* The functions *)
+m = 1;
+
+v[x_, y_] := 
+  Sum[b[i].b[i] (3 m) (3 m + 1)/Sinh[b[i].{x, y}]^2, {i, {1, 2, 3}}];
+v1[x_, y_] := b[1].b[1] (3 m) (3 m + 1)/Sinh[b[1].{x, y}]^2;
+v2[x_, y_] := b[2].b[2] (3 m) (3 m + 1)/Sinh[b[2].{x, y}]^2;
+v3[x_, y_] := b[3].b[3]  (3 m) (3 m + 1)/Sinh[b[3].{x, y}]^2;
+
+u[x_, y_] := 
+  Sum[a[i].a[i] m (m + 1)/Sinh[a[i].{x, y}]^2, {i, {1, 2, 3}}];
+u1[x_, y_] := a[1].a[1] m (m + 1)/Sinh[a[1].{x, y}]^2;
+u2[x_, y_] := a[2].a[2] m (m + 1)/Sinh[a[2].{x, y}]^2;
+u3[x_, y_] := a[3].a[3] m (m + 1)/Sinh[a[3].{x, y}]^2;
+
+f1[x_, y_] := -a[1].a[1] m Coth[a[1].{x, y}] ;
+f2[x_, y_] := -a[2].a[2] m Coth[a[2].{x, y}];
+f3[x_, y_] := -a[3].a[3] m Coth[a[3].{x, y}] ;
+
+g1[x_, y_] := 
+  f2[x, y] f3[x, y] + 
+   a[1].a[2] * a[1].a[3] (3 m + 1) 3 m/Sinh[b[1].{x, y}]^2 ;
+g2[x_, y_] := 
+  f1[x, y] f3[x, y] + 
+   a[2].a[1] * a[2].a[3] (3 m + 1) 3 m/Sinh[b[2].{x, y}]^2;
+g3[x_, y_] := 
+  f1[x, y] f2[x, y] + 
+   a[3].a[1] * a[3].a[2] (3 m + 1) 3 m/Sinh[b[3].{x, y}]^2;
+   
+
+G1[x_, y_] := a[1].a[2] * a[1].a[3] (3 m + 1) 3 m/Sinh[b[1].{x, y}]^2;
+G2[x_, y_] := a[2].a[1] * a[2].a[3] (3 m + 1) 3 m/Sinh[b[2].{x, y}]^2;
+G3[x_, y_] := a[3].a[1] * a[3].a[2] (3 m + 1) 3 m/Sinh[b[3].{x, y}]^2;   
+
+   
+sol1 = 108 (13 + 12 Cosh[Sqrt[2] x]^2 + 6 Cosh[2 Sqrt[2] x] + 
+     24 Cosh[Sqrt[2] x] Cosh[Sqrt[6] y]) Csch[Sqrt[6] y] Csch[(
+    3 x - Sqrt[3] y)/Sqrt[2]] Csch[(3 x + Sqrt[3] y)/Sqrt[2]];
+h[x_, y_] := 
+  f1[x, y] f2[x, y] f3[x, y] + f1[x, y] G1[x, y] + 
+   f2[x, y] G2[x, y] + f3[x, y] G3[x, y] + sol1;
+   
+(* Pickling operators *)
+DG2m3m1A2m3 = 
+ DirectionalD[DirectionalD[DirectionalD[g[x, y], a[3]], a[2]], 
+   a[1]] + f1[x, y] DirectionalD[DirectionalD[g[x, y], a[2]], a[3]] + 
+  f2[x, y] DirectionalD[DirectionalD[g[x, y], a[1]], a[3]] + 
+  f3[x, y] DirectionalD[DirectionalD[g[x, y], a[1]], a[2]] + 
+  g1[x, y] DirectionalD[g[x, y], a[1]] + 
+  g2[x, y] DirectionalD[g[x, y], a[2]] + 
+  g3[x, y] DirectionalD[g[x, y], a[3]] + h[x, y] g[x, y];
+  
+DumpSave["DG2m3m1A2m3.mx", DG2m3m1A2m3];
+
+Exit[]
