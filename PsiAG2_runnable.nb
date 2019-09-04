@@ -68,5 +68,17 @@ expr = PsiA2m2NOuv[0.22, 0.1];
 Print["The size of PsiA2m2NOuv is: " <> ToString[ByteCount[expr]]]
 
 
+(* Obtain the Baker-Akhiezer function PsiA2m3 *)
+Clear[g]
+<< DA2m3A2m2.mx; 
+g[x_, y_] := Evaluate[PsiA2m2];
+PsiA2m3 = DA2m3A2m2; 
+Clear[g]
+Print["The size of PsiA2m3 is: " <> ToString[ByteCount[PsiA2m3]]]
+
+PsiA2m3NOuv[A_, B_] := N[PsiA2m3 /. {U -> A, V -> B}];
+expr = PsiA2m3NOuv[0.22, 0.1]; 
+Print["The size of PsiA2m3NOuv is: " <> ToString[ByteCount[expr]]]
+
 
 Exit[]
