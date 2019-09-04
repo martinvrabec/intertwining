@@ -113,4 +113,61 @@ Print[DG2m3m1A2m3[DA2m3A2m2[Coth[x y]]] /. {x -> 2., y -> 2.} //
   N // AbsoluteTiming]
 Print[Dcombined[Coth[x y], 2., 2.] // AbsoluteTiming]
   
+Print["End of tests."]
+
+X = {x, y};
+z = {U, V};
+
+(* The vectors *)
+w = 1;
+b[1] = w {Sqrt[2], 0};
+b[2] = w {Sqrt[2]/2, Sqrt[6]/2};
+b[3] = w {-Sqrt[2]/2, Sqrt[6]/2};
+
+(* The inner products with {x, y} *)
+b1 = b[1].X;
+b2 = b[2].X; 
+b3 = b[3].X;  
+
+B1 = b[1].z;
+B2 = b[2].z; 
+B3 = b[3].z;  
+
+(**** The Baker-Akhiezer function PsiA2m1 ****)
+PsiA2m1 = (B1 B2 B3 - 2 B2 B3 Coth[b1] - 2 B1 B3 Coth[b2] - 
+     2 B1 B2 Coth[b3]
+     + 4 B1 Coth[b2] Coth[b3] + 4 B2 Coth[b1] Coth[b3] + 
+     4 B3 Coth[b1] Coth[b2]
+     - 8 Coth[b1] Coth[b2] Coth[b3] - 
+     4/Sinh[b1]/Sinh[b2]/Sinh[b3]) Exp[X.z];
+
+(**** Obtain the Baker-Akhiezer function PsiA2m1NOuv ****)
+PsiA2m1NOuv[A_, B_] := PsiA2m1 /. {U -> A, V -> B} // FullSimplify ;
+expr = PsiA2m1NOuv[0.5, 0.1]; 
+Print["The size of expr is: " <> ToString[ByteCount[expr]]];
+
+derx = D[expr, x] // FullSimplify;
+dery = D[expr, y] // FullSimplify;
+derxx = D[derx, x] // FullSimplify;
+deryx = D[dery, x] // FullSimplify;
+deryy = D[dery, y] // FullSimplify;
+derxxx =  D[derxx, x] // Simplify;
+derxyy = D[deryy, x] // Simplify;
+derxxy = D[deryx, x] // Simplify;
+
+
+coeffxxx = -0.707107;
+coeffxyy = 2.12132;
+coeffxy = 6.9282 Coth[0.707107 x - 1.22474 y] - 6.9282 Coth[0.707107 x + 1.22474 y];
+coeffyy = -6. Coth[1.41421 x];
+coeffxx = 2. Coth[1.41421 x] + 4. Coth[0.707107 x - 1.22474 y] + 4. Coth[0.707107 x + 1.22474 y];
+coeffx = -11.3137 Coth[1.41421 x] Coth[0.707107 x - 1.22474 y] + (-11.3137 Coth[1.41421 x] - 22.6274 Coth[0.707107 x - 1.22474 y]) Coth[0.707107 x + 1.22474 y] + 2.82843 Csch[1.41421 x]^2 - 1.41421 Csch[0.707107 x - 1.22474 y]^2 - 1.41421 Csch[0.707107 x + 1.22474 y]^2
+coeffy = Coth[1.41421 x] (-19.5959 Coth[0.707107 x - 1.22474 y] + 19.5959 Coth[0.707107 x + 1.22474 y]) + 2.44949 Csch[0.707107 x - 1.22474 y]^2 - 2.44949 Csch[0.707107 x + 1.22474 y]^2
+coeff = Coth[1.41421 x] (64. Coth[0.707107 x - 1.22474 y] Coth[0.707107 x + 1.22474 y] - 16. Csch[1.41421 x]^2) + 16. Coth[0.707107 x - 1.22474 y] Csch[0.707107 x - 1.22474 y]^2 + Csch[0.707107 x + 1.22474 y] (8. Csch[1.41421 x] Csch[0.707107 x - 1.22474 y] + 16. Coth[0.707107 x + 1.22474 y] Csch[0.707107 x + 1.22474 y])
+		
+
+PsiA2m2 = = N[coeff expr + coeffx derx + coeffy dery + coeffxx derxx + coeffxy deryx + coeffyy deryy + coeffxxx derxxx + coeffxyy derxyy ];		
+Print["The size of PsiA2m2 is: " <> ToString[ByteCount[PsiA2m2]]];
+Print[PsiA2m2  /. {x -> 1, y -> 2} // N];  
+  
 Exit[]
