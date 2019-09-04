@@ -1,0 +1,137 @@
+(* The vectors *)
+w = 1;
+b[1] := w {Sqrt[2], 0};
+b[2] := w {Sqrt[2]/2, Sqrt[6]/2};
+b[3] := w {-Sqrt[2]/2, Sqrt[6]/2};
+a[3] := w {3 Sqrt[2]/2, Sqrt[6]/2};
+a[2] :=  w {-3 Sqrt[2]/2, Sqrt[6]/2};
+a[1] := w {0, Sqrt[6]};
+
+(* The inner products with {x, y} *)
+b1 := b[1].{x, y};
+b2 := b[2].{x, y}; 
+b3 := b[3].{x, y};  
+a1 := a[1].{x, y};
+a2 := a[2].{x, y}; 
+a3 := a[3].{x, y};   
+
+(* The associated operators *)
+Db1 = b[1][[1]] d1 + b[1][[2]] d2;
+Db2 = b[2][[1]] d1 + b[2][[2]] d2;
+Db3 = b[3][[1]] d1 + b[3][[2]] d2;
+
+(* Derivative of a function f in the direction of a vecor v *)
+DirectionalD[f_, v_] := v[[1]] D[f, x] + v[[2]] D[f, y];
+
+Clear[m]
+m = 1;
+u[x_, y_] := 
+  Sum[b[i].b[i] (3 m + 1) (3 m + 2)/Sinh[b[i].{x, y}]^2 - 
+    2 b[i].b[i]/Cosh[b[i].{x, y}]^2, {i, {1, 2, 3}}];
+u1[x_, y_] := 
+  b[1].b[1] (3 m + 1) (3 m + 2)/Sinh[b[1].{x, y}]^2 - 
+   2 b[1].b[1]/Cosh[b[1].{x, y}]^2;
+u2[x_, y_] := 
+  b[2].b[2] (3 m + 1) (3 m + 2)/Sinh[b[2].{x, y}]^2 - 
+   2 b[2].b[2]/Cosh[b[2].{x, y}]^2;
+u3[x_, y_] := 
+  b[3].b[3] (3 m + 1) (3 m + 2)/Sinh[b[3].{x, y}]^2 - 
+   2 b[3].b[3]/Cosh[b[3].{x, y}]^2;
+
+v[x_, y_] := 
+  Sum[a[i].a[i] m (m + 1)/Sinh[a[i].{x, y}]^2, {i, {1, 2, 3}}];
+v1[x_, y_] := a[1].a[1] m (m + 1)/Sinh[a[1].{x, y}]^2;
+v2[x_, y_] := a[2].a[2] m (m + 1)/Sinh[a[2].{x, y}]^2;
+v3[x_, y_] := a[3].a[3] m (m + 1)/Sinh[a[3].{x, y}]^2;
+
+utilde[x_, y_] := 
+  Sum[b[i].b[i] (3 m) (3 m + 1)/Sinh[b[i].{x, y}]^2, {i, {1, 2, 3}}];
+u1tilde[x_, y_] := b[1].b[1] (3 m) (3 m + 1)/Sinh[b[1].{x, y}]^2;
+u2tilde[x_, y_] := b[2].b[2] (3 m) (3 m + 1)/Sinh[b[2].{x, y}]^2;
+u3tilde[x_, y_] := b[3].b[3]  (3 m) (3 m + 1)/Sinh[b[3].{x, y}]^2;
+
+uhat[x_, y_] := u[x, y] - utilde[x, y];
+u1hat[x_, y_] := u1[x, y] - u1tilde[x, y];
+u2hat[x_, y_] := u2[x, y] - u2tilde[x, y];
+u3hat[x_, y_] := u3[x, y] - u3tilde[x, y];
+
+f1[x_, y_] := -b[1].b[1] (3 m + 1) Coth[b[1].{x, y}] - 
+   b[1].b[1] Tanh[b[1].{x, y}];
+f2[x_, y_] := -b[2].b[2] (3 m + 1) Coth[b[2].{x, y}] - 
+   b[2].b[2] Tanh[b[2].{x, y}];
+f3[x_, y_] := -b[3].b[3] (3 m + 1) Coth[b[3].{x, y}] - 
+   b[3].b[3] Tanh[b[3].{x, y}];
+
+g1[x_, y_] := 
+  f2[x, y] f3[x, y] - 
+   a[1].b[2] * a[1].b[3] m (m + 1)/Sinh[a[1].{x, y}]^2 - 
+   b[1].b[2] *b[1].b[3] 3 m (3 m + 1)/Sinh[b[1].{x, y}]^2 ;
+g2[x_, y_] := 
+  f1[x, y] f3[x, y] - 
+   a[2].b[1] * a[2].b[3] m (m + 1)/Sinh[a[2].{x, y}]^2 - 
+   b[2].b[1] * b[2].b[3] 3 m (3 m + 1)/Sinh[b[2].{x, y}]^2;
+g3[x_, y_] := 
+  f1[x, y] f2[x, y] - 
+   a[3].b[1] * a[3].b[2] m (m + 1)/Sinh[a[3].{x, y}]^2 - 
+   b[3].b[1] * b[3].b[2] 3 m (3 m + 1)/Sinh[b[3].{x, y}]^2;
+
+g1I[x_, y_] := f2[x, y] f3[x, y];
+g2I[x_, y_] := f1[x, y] f3[x, y];
+g3I[x_, y_] := f1[x, y] f2[x, y];
+
+g1tilde[x_, y_] := - a[1].b[2] * 
+   a[1].b[3] m (m + 1)/Sinh[a[1].{x, y}]^2;
+g2tilde[x_, y_] := - a[2].b[1] * 
+   a[2].b[3] m (m + 1)/Sinh[a[2].{x, y}]^2;
+g3tilde[x_, y_] := - a[3].b[1] * 
+   a[3].b[2] m (m + 1)/Sinh[a[3].{x, y}]^2;
+
+G1[x_, y_] := - b[1].b[2] *b[1].b[3] 3 m (3 m + 1)/Sinh[b[1].{x, y}]^2;
+G2[x_, y_] := - b[2].b[1] * 
+   b[2].b[3] 3 m (3 m + 1)/Sinh[b[2].{x, y}]^2;
+G3[x_, y_] := -b[3].b[1] * b[3].b[2] 3 m (3 m + 1)/Sinh[b[3].{x, y}]^2;
+
+h[x_, y_] := 
+  f1[x, y] f2[x, y] f3[x, y] + f1[x, y] (g1tilde[x, y] + G1[x, y]) + 
+   f2[x, y] (g2tilde[x, y] + G2[x, y]) + 
+   f3[x, y] (g3tilde[x, y] + G3[x, y]) - 
+   b[1].b[2]*b[1].b[3]/b[1].b[1] DirectionalD[u1tilde[x, y], b[1]] - 
+   b[2].b[1]*b[2].b[3]/b[2].b[2] DirectionalD[u2tilde[x, y], b[2]] - 
+   b[3].b[1]*b[2].b[3]/b[3].b[3] DirectionalD[u3tilde[x, y], b[3]] - 
+   3 m (3 m + 1) b[1].b[1]*b[2].b[2]*b[3].b[3] X - 
+   4 (3 m + 1) b[1].b[1]*b[2].b[2]*b[3].b[3] Y;
+
+hI[x_, y_] := f1[x, y] f2[x, y] f3[x, y];
+hII[x_, y_] := 
+ f1[x, y] (g1tilde[x, y] + G1[x, y]) + 
+  f2[x, y] (g2tilde[x, y] + G2[x, y]) + 
+  f3[x, y] (g3tilde[x, y] + G3[x, y])
+hIII[x_, y_] := -b[1].b[2]*
+    b[1].b[3]/b[1].b[1] DirectionalD[u1tilde[x, y], b[1]] - 
+   b[2].b[1]*b[2].b[3]/b[2].b[2] DirectionalD[u2tilde[x, y], b[2]] - 
+   b[3].b[1]*b[2].b[3]/b[3].b[3] DirectionalD[u3tilde[x, y], b[3]];
+hIV[x_, y_] := -3 m (3 m + 1) b[1].b[1]*b[2].b[2]*b[3].b[3] X - 
+   4 (3 m + 1) b[1].b[1]*b[2].b[2]*b[3].b[3] Y;
+
+Clear[X, Y]
+X = 1/ Sinh[b1] /Sinh[b2]/ Sinh[b3];
+Y = 1/ Sinh[2 b1] /Sinh[2 b2]/ Sinh[2 b3]; 
+
+
+(* Pickling the operator *)
+D0[g_, A_, B_] := 
+  DirectionalD[DirectionalD[DirectionalD[g, b[3]], b[2]], b[1]] + 
+     f1[x, y] DirectionalD[DirectionalD[g, b[2]], b[3]] + 
+     f2[x, y] DirectionalD[DirectionalD[g, b[1]], b[3]] + 
+     f3[x, y] DirectionalD[DirectionalD[g, b[1]], b[2]] + 
+     g1[x, y] DirectionalD[g, b[1]] + 
+     g2[x, y] DirectionalD[g, b[2]] + 
+     g3[x, y] DirectionalD[g, b[3]] + h[x, y] g /. {x -> A, y -> B} // 
+   N; 
+Clear[g]
+DAG2m1G2m3m1 = D0[g[x, y], 0.1, 0.22];
+
+DumpSave["DAG2m1G2m3m1.mx", DAG2m1G2m3m1];
+
+
+Exit[]
