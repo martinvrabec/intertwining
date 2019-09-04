@@ -1,0 +1,96 @@
+(* The vectors *)
+w = 1;
+b[1] = w {Sqrt[2], 0};
+b[2] = w {Sqrt[2]/2, Sqrt[6]/2};
+b[3] = w {-Sqrt[2]/2, Sqrt[6]/2};
+
+(* The inner products with {x, y} *)
+b1 = b[1].{x, y};
+b2 = b[2].{x, y}; 
+b3 = b[3].{x, y};  
+
+(* The associated operators *)
+Db1 = b[1][[1]] d1 + b[1][[2]] d2;
+Db2 = b[2][[1]] d1 + b[2][[2]] d2;
+Db3 = b[3][[1]] d1 + b[3][[2]] d2;
+
+(* Derivative of a function f in the direction of a vecor v *)
+DirectionalD[f_, v_] := v[[1]] D[f, x] + v[[2]] D[f, y];
+
+(* The functions *)
+Clear[m]
+v[x_, y_] := 
+  Sum[b[i].b[i] m (m + 1)/Sinh[b[i].{x, y}]^2, {i, {1, 2, 3}}];
+v1[x_, y_] := b[1].b[1] m (m + 1)/Sinh[b[1].{x, y}]^2;
+v2[x_, y_] := b[2].b[2] m (m + 1)/Sinh[b[2].{x, y}]^2;
+v3[x_, y_] := b[3].b[3]  m (m + 1)/Sinh[b[3].{x, y}]^2;
+
+vtilde[x_, y_] := 
+  Sum[b[i].b[i] m (m - 1)/Sinh[b[i].{x, y}]^2, {i, {1, 2, 3}}];
+v1tilde[x_, y_] := b[1].b[1] m (m - 1)/Sinh[b[1].{x, y}]^2;
+v2tilde[x_, y_] := b[2].b[2] m (m - 1)/Sinh[b[2].{x, y}]^2;
+v3tilde[x_, y_] := b[3].b[3]  m (m - 1)/Sinh[b[3].{x, y}]^2;
+
+vhat[x_, y_] := v[x, y] - vtilde[x, y];
+v1hat[x_, y_] := v1[x, y] - v1tilde[x, y];
+v2hat[x_, y_] := v2[x, y] - v2tilde[x, y];
+v3hat[x_, y_] := v3[x, y] - v3tilde[x, y];
+
+f1[x_, y_] := -b[1].b[1] m Coth[b[1].{x, y}] ;
+f2[x_, y_] := -b[2].b[2] m Coth[b[2].{x, y}];
+f3[x_, y_] := -b[3].b[3] m Coth[b[3].{x, y}] ;
+
+g1[x_, y_] := 
+  f2[x, y] f3[x, y] - 
+   b[1].b[2] *b[1].b[3] m (m - 1)/Sinh[b[1].{x, y}]^2;
+g2[x_, y_] := 
+  f1[x, y] f3[x, y] - 
+   b[2].b[1] * b[2].b[3] m (m - 1)/Sinh[b[2].{x, y}]^2;
+g3[x_, y_] := 
+  f1[x, y] f2[x, y] - 
+   b[3].b[1] * b[3].b[2] m (m - 1)/Sinh[b[3].{x, y}]^2;
+
+g1I[x_, y_] := f2[x, y] f3[x, y];
+g2I[x_, y_] := f1[x, y] f3[x, y];
+g3I[x_, y_] := f1[x, y] f2[x, y];
+
+G1[x_, y_] := - b[1].b[2] *b[1].b[3] m (m - 1)/Sinh[b[1].{x, y}]^2;
+G2[x_, y_] := - b[2].b[1] * b[2].b[3] m (m - 1)/Sinh[b[2].{x, y}]^2;
+G3[x_, y_] := -b[3].b[1] * b[3].b[2] m (m - 1)/Sinh[b[3].{x, y}]^2;
+
+h[x_, y_] := 
+  f1[x, y] f2[x, y] f3[x, y] + f1[x, y] G1[x, y] + 
+   f2[x, y] G2[x, y] + f3[x, y] G3[x, y] - 
+   b[1].b[2]*b[1].b[3]/b[1].b[1] DirectionalD[v1tilde[x, y], b[1]] - 
+   b[2].b[1]*b[2].b[3]/b[2].b[2] DirectionalD[v2tilde[x, y], b[2]] - 
+   b[3].b[1]*b[2].b[3]/b[3].b[3] DirectionalD[v3tilde[x, y], b[3]] + 
+   2 (m - 3) m^2/Sinh[b1]/Sinh[b2]/Sinh[b3];
+   
+
+(* Pickling operators for some particular values of m *)
+m = 3;
+DA2m3A2m2 = 
+ DirectionalD[DirectionalD[DirectionalD[g[x, y], b[3]], b[2]], 
+   b[1]] + f1[x, y] DirectionalD[DirectionalD[g[x, y], b[2]], b[3]] + 
+  f2[x, y] DirectionalD[DirectionalD[g[x, y], b[1]], b[3]] + 
+  f3[x, y] DirectionalD[DirectionalD[g[x, y], b[1]], b[2]] + 
+  g1[x, y] DirectionalD[g[x, y], b[1]] + 
+  g2[x, y] DirectionalD[g[x, y], b[2]] + 
+  g3[x, y] DirectionalD[g[x, y], b[3]] + h[x, y] g[x, y];
+  
+DumpSave["DA2m3A2m2.mx", DA2m3A2m2];
+
+
+m = 2;
+DA2m2A2m1 = 
+  DirectionalD[DirectionalD[DirectionalD[g[x, y], b[3]], b[2]], 
+    b[1]] + f1[x, y] DirectionalD[DirectionalD[g[x, y], b[2]], 
+     b[3]] + f2[x, y] DirectionalD[DirectionalD[g[x, y], b[1]], 
+     b[3]] + f3[x, y] DirectionalD[DirectionalD[g[x, y], b[1]], 
+     b[2]] + g1[x, y] DirectionalD[g[x, y], b[1]] + 
+   g2[x, y] DirectionalD[g[x, y], b[2]] + 
+   g3[x, y] DirectionalD[g[x, y], b[3]] + h[x, y] g[x, y];
+   
+DumpSave["DA2m2A2m1.mx", DA2m2A2m1];
+
+Exit[]
