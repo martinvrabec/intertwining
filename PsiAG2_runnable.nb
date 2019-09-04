@@ -47,11 +47,11 @@ PsiA2m1 = ((b[1].z) (b[2].z) (b[3].z)
      - 8 Coth[b1] Coth[b2] Coth[b3] - 
      4/Sinh[b1]/Sinh[b2]/Sinh[b3]) Exp[X.z];
 
-ByteCount[PsiA2m1]
+Print["The size of PsiA2m1 is: " <> ToString[ByteCount[PsiA2m1]]]
 
 PsiA2m1NOuv[A_, B_] := PsiA2m1 /. {U -> A, V -> B} // FullSimplify;
 
 expr = PsiA2m1NOuv[0.5, 0.1]; // AbsoluteTiming
-ByteCount[expr]
+Print["The size of PsiA2m1NOuv is: " <> ToString[ByteCount[expr]]]
 
 Exit[]
