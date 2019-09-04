@@ -105,12 +105,12 @@ D0[g_] :=
    Sqrt[2] (Sqrt[3/
        2] (Sqrt[3/2] D[g, x, y, y] - D[g, x, y, y]/Sqrt[2]) + (
       Sqrt[3/2] D[g, x, y, y] -  D[g, x, x, x]/Sqrt[2])/Sqrt[2]);
-	  
+	 
+Dcombined[g_, A_, B_] := D0[DG2m3m1A2m3[DA2m3A2m2[g]]] /. {x -> A, y -> B} // N;
 	  
 Print[DA2m3A2m2[Coth[x y]] /. {x -> 2., y -> 2.} // N // AbsoluteTiming]
 Print[DG2m3m1A2m3[DA2m3A2m2[Coth[x y]]] /. {x -> 2., y -> 2.} // 
   N // AbsoluteTiming]
-Print[D0[DG2m3m1A2m3[DA2m3A2m2[Coth[x y]]], 2., 2.] /. {x -> 2., y -> 2.} // 
-  N // AbsoluteTiming]
+Print[Dcombined[Coth[x y], 2., 2.] // AbsoluteTiming]
   
 Exit[]
