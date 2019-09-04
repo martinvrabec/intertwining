@@ -166,8 +166,11 @@ coeffy = Coth[1.41421 x] (-19.5959 Coth[0.707107 x - 1.22474 y] + 19.5959 Coth[0
 coeff = Coth[1.41421 x] (64. Coth[0.707107 x - 1.22474 y] Coth[0.707107 x + 1.22474 y] - 16. Csch[1.41421 x]^2) + 16. Coth[0.707107 x - 1.22474 y] Csch[0.707107 x - 1.22474 y]^2 + Csch[0.707107 x + 1.22474 y] (8. Csch[1.41421 x] Csch[0.707107 x - 1.22474 y] + 16. Coth[0.707107 x + 1.22474 y] Csch[0.707107 x + 1.22474 y])
 		
 
-PsiA2m2 = = N[coeff expr + coeffx derx + coeffy dery + coeffxx derxx + coeffxy deryx + coeffyy deryy + coeffxxx derxxx + coeffxyy derxyy ];		
+PsiA2m2 = N[coeff expr + coeffx derx + coeffy dery + coeffxx derxx + coeffxy deryx + coeffyy deryy + coeffxxx derxxx + coeffxyy derxyy ];		
 Print["The size of PsiA2m2 is: " <> ToString[ByteCount[PsiA2m2]]];
 Print[PsiA2m2  /. {x -> 1, y -> 2} // N];  
+  
+
+Print[Dcombined[PsiA2m2, 2., 2.] // AbsoluteTiming]  
   
 Exit[]
