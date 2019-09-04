@@ -82,14 +82,17 @@ Print["The size of PsiA2m3NOuv is: " <> ToString[ByteCount[expr]]]
 
 
 (* Obtain the Baker-Akhiezer function PsiG2m1m3 *)
-Clear[g]
+(* Clear[g]
 << DG2m3m1A2m3.mx; 
 
 
 g[x_, y_] := Evaluate[expr];
 PsiG2m1m3 = DG2m3m1A2m3;
-Clear[g]
-Print["The size of PsiA2m3 is: " <> ToString[ByteCount[PsiG2m1m3 ]]]
+Clear[g] *)
+(* DumpSave["PsiG2m1m3.mx", PsiG2m1m3] ;*)
+<<PsiG2m1m3.mx
+Print["The size of PsiG2m1m3 is: " <> ToString[ByteCount[PsiG2m1m3]]]
+Print[PsiG2m1m3 /. {x -> 0.22, y -> 0.22} // N //AbsoluteTiming]
 
 
 Exit[]
