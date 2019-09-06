@@ -199,36 +199,35 @@ Print["The size of PsiA2m2NOuv[3 Sqrt[2.], 0.1] is: " <>
 Print[DecimalForm[Dcombined[expr, 2., 2.2], 
    DefaultPrintPrecision -> 12] // AbsoluteTiming]
 
-(* 
-Print[Dcombined[expr,2,2.2]//AbsoluteTiming]
 
-expr=PsiA2m2NOuv[-3 Sqrt[2.],0.1];
-Print[Dcombined[expr,2,2.2]//AbsoluteTiming]
-
-expr=PsiA2m2NOuv[4 Sqrt[2.],0.1];
-Print[DecimalForm[Dcombined[expr,2,2.2],DefaultPrintPrecision\[Rule]\
-10]//AbsoluteTiming]
-
-expr=PsiA2m2NOuv[-4 Sqrt[2.],0.1];
-Print[DecimalForm[Dcombined[expr,2,2.2],DefaultPrintPrecision\[Rule]\
-10]//AbsoluteTiming]
-
-
+Print["(U = 0.1, V = Sqrt[6.], x = 2., y = 2.2)"];
 expr=PsiA2m2NOuv[0.1,Sqrt[6.]];
-Print[Dcombined[expr,2,2.2]//AbsoluteTiming]
+Print[Dcombined[expr,2,2.2]//AbsoluteTiming];
 
+
+Print["(U = 0.1, V = -Sqrt[6.], x = 2., y = 2.2)"];
 expr=PsiA2m2NOuv[0.1,-Sqrt[6.]];
-Print[Dcombined[expr,2,2.2]//AbsoluteTiming]
+Print[Dcombined[expr,2,2.2]//AbsoluteTiming];
 
 
+Print["(U = 0.1, V = 2Sqrt[6.], x = 2., y = 2.2)"];
 expr=PsiA2m2NOuv[0.1,2 Sqrt[6.]];
 Print[DecimalForm[Dcombined[expr,2,2.2],DefaultPrintPrecision\[Rule]\
 10]//AbsoluteTiming]
 
+
+Print["(U = 0.1, V = -2Sqrt[6.], x = 2., y = 2.2)"];
 expr=PsiA2m2NOuv[0.1,-2 Sqrt[6.]];
 Print[DecimalForm[Dcombined[expr,2,2.2],DefaultPrintPrecision\[Rule]\
 10]//AbsoluteTiming]
 
-*)
+
+Print["(U = 0.1, V = 1/2 Sqrt[6.], x = 2., y = 2.2)"];
+expr=PsiA2m2NOuv[0.1,1/2 Sqrt[6.]];
+Print[Dcombined[expr,2,2.2]//AbsoluteTiming];
+
+Print["(U = 0.1, V = -1/2 Sqrt[6.], x = 2., y = 2.2)"];
+expr=PsiA2m2NOuv[0.1,-1/2 Sqrt[6.]];
+Print[Dcombined[expr,2,2.2]//AbsoluteTiming];
 
 Exit[]
