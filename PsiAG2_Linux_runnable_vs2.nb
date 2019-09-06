@@ -194,7 +194,7 @@ Print["Computations: "];
 Print["(U = 3Sqrt[2.], V =  0.1, x = 2., y = 2.2)"];
 
 PsiG2m1m3NOuv[A_, B_] := N[PsiG2m1m3 /. {U -> A, V -> B}] ;
-expr = PsiG2m1m3NOuv[3 Sqrt[2.], 0.1]; // AbsoluteTiming
+expr = PsiG2m1m3NOuv[3 Sqrt[2.], 0.1]; 
 Print["The size of PsiG2m1m3NOuv[3Sqrt[2.], 0.1] is: " <> 
    ToString[ByteCount[expr]]];
 
@@ -249,5 +249,342 @@ RowBox[{"3", ",", "0"}], ")"}],
 Derivative],
 MultilineFunction->None]\)[2`, 2.2`] -> der[3, 0]} // N), 
    DefaultPrintPrecision -> 12]];
+
+
+
+Print["(U = 0.1, V =  Sqrt[6.], x = 2., y = 2.2)"];
+expr = PsiG2m1m3NOuv[0.1, Sqrt[6.]]; 
+Print[(Do[
+     der[l[[1]], l[[2]]] =  
+      D[expr, {x, l[[1]]}, {y, l[[2]]}] /. {x -> 2, y -> 2.2} // 
+       N, {l, {{0, 0}, {1, 0}, {0, 1}, {2, 0}, {1, 1}, {0, 2}, {3, 
+        0}, {1, 2}}}];) // AbsoluteTiming]
+
+Print[DecimalForm[((D0[g[x, y]] /. {x -> 2, y -> 2.2} // N // 
+        Simplify) /. {g[2`, 2.2`] -> der[0, 0], 
+\!\(\*SuperscriptBox[\(g\), 
+TagBox[
+RowBox[{"(", 
+RowBox[{"0", ",", "1"}], ")"}],
+Derivative],
+MultilineFunction->None]\)[2`, 2.2`] -> der[0, 1], 
+\!\(\*SuperscriptBox[\(g\), 
+TagBox[
+RowBox[{"(", 
+RowBox[{"0", ",", "2"}], ")"}],
+Derivative],
+MultilineFunction->None]\)[2`, 2.2`] -> der[0, 2], 
+\!\(\*SuperscriptBox[\(g\), 
+TagBox[
+RowBox[{"(", 
+RowBox[{"1", ",", "0"}], ")"}],
+Derivative],
+MultilineFunction->None]\)[2`, 2.2`] -> der[1, 0],  
+\!\(\*SuperscriptBox[\(g\), 
+TagBox[
+RowBox[{"(", 
+RowBox[{"1", ",", "1"}], ")"}],
+Derivative],
+MultilineFunction->None]\)[2`, 2.2`] -> der[1, 1], 
+\!\(\*SuperscriptBox[\(g\), 
+TagBox[
+RowBox[{"(", 
+RowBox[{"1", ",", "2"}], ")"}],
+Derivative],
+MultilineFunction->None]\)[2`, 2.2`] -> der[1, 2], 
+\!\(\*SuperscriptBox[\(g\), 
+TagBox[
+RowBox[{"(", 
+RowBox[{"2", ",", "0"}], ")"}],
+Derivative],
+MultilineFunction->None]\)[2`, 2.2`] -> der[2, 0], 
+\!\(\*SuperscriptBox[\(g\), 
+TagBox[
+RowBox[{"(", 
+RowBox[{"3", ",", "0"}], ")"}],
+Derivative],
+MultilineFunction->None]\)[2`, 2.2`] -> der[3, 0]} // N), 
+   DefaultPrintPrecision -> 12]];
+   
+
+
+Print["(U = 0.1, V = -Sqrt[6.], x = 2., y = 2.2)"];
+expr = PsiG2m1m3NOuv[0.1, -Sqrt[6.]]; 
+Print[(Do[
+     der[l[[1]], l[[2]]] =  
+      D[expr, {x, l[[1]]}, {y, l[[2]]}] /. {x -> 2, y -> 2.2} // 
+       N, {l, {{0, 0}, {1, 0}, {0, 1}, {2, 0}, {1, 1}, {0, 2}, {3, 
+        0}, {1, 2}}}];) // AbsoluteTiming]
+
+Print[DecimalForm[((D0[g[x, y]] /. {x -> 2, y -> 2.2} // N // 
+        Simplify) /. {g[2`, 2.2`] -> der[0, 0], 
+\!\(\*SuperscriptBox[\(g\), 
+TagBox[
+RowBox[{"(", 
+RowBox[{"0", ",", "1"}], ")"}],
+Derivative],
+MultilineFunction->None]\)[2`, 2.2`] -> der[0, 1], 
+\!\(\*SuperscriptBox[\(g\), 
+TagBox[
+RowBox[{"(", 
+RowBox[{"0", ",", "2"}], ")"}],
+Derivative],
+MultilineFunction->None]\)[2`, 2.2`] -> der[0, 2], 
+\!\(\*SuperscriptBox[\(g\), 
+TagBox[
+RowBox[{"(", 
+RowBox[{"1", ",", "0"}], ")"}],
+Derivative],
+MultilineFunction->None]\)[2`, 2.2`] -> der[1, 0],  
+\!\(\*SuperscriptBox[\(g\), 
+TagBox[
+RowBox[{"(", 
+RowBox[{"1", ",", "1"}], ")"}],
+Derivative],
+MultilineFunction->None]\)[2`, 2.2`] -> der[1, 1], 
+\!\(\*SuperscriptBox[\(g\), 
+TagBox[
+RowBox[{"(", 
+RowBox[{"1", ",", "2"}], ")"}],
+Derivative],
+MultilineFunction->None]\)[2`, 2.2`] -> der[1, 2], 
+\!\(\*SuperscriptBox[\(g\), 
+TagBox[
+RowBox[{"(", 
+RowBox[{"2", ",", "0"}], ")"}],
+Derivative],
+MultilineFunction->None]\)[2`, 2.2`] -> der[2, 0], 
+\!\(\*SuperscriptBox[\(g\), 
+TagBox[
+RowBox[{"(", 
+RowBox[{"3", ",", "0"}], ")"}],
+Derivative],
+MultilineFunction->None]\)[2`, 2.2`] -> der[3, 0]} // N), 
+   DefaultPrintPrecision -> 12]];   
+   
+   
+
+Print["(U = 0.1, V = 2 Sqrt[6.], x = 2., y = 2.2)"];
+expr = PsiG2m1m3NOuv[0.1, 2 Sqrt[6.]]; 
+Print[(Do[
+     der[l[[1]], l[[2]]] =  
+      D[expr, {x, l[[1]]}, {y, l[[2]]}] /. {x -> 2, y -> 2.2} // 
+       N, {l, {{0, 0}, {1, 0}, {0, 1}, {2, 0}, {1, 1}, {0, 2}, {3, 
+        0}, {1, 2}}}];) // AbsoluteTiming]
+
+Print[DecimalForm[((D0[g[x, y]] /. {x -> 2, y -> 2.2} // N // 
+        Simplify) /. {g[2`, 2.2`] -> der[0, 0], 
+\!\(\*SuperscriptBox[\(g\), 
+TagBox[
+RowBox[{"(", 
+RowBox[{"0", ",", "1"}], ")"}],
+Derivative],
+MultilineFunction->None]\)[2`, 2.2`] -> der[0, 1], 
+\!\(\*SuperscriptBox[\(g\), 
+TagBox[
+RowBox[{"(", 
+RowBox[{"0", ",", "2"}], ")"}],
+Derivative],
+MultilineFunction->None]\)[2`, 2.2`] -> der[0, 2], 
+\!\(\*SuperscriptBox[\(g\), 
+TagBox[
+RowBox[{"(", 
+RowBox[{"1", ",", "0"}], ")"}],
+Derivative],
+MultilineFunction->None]\)[2`, 2.2`] -> der[1, 0],  
+\!\(\*SuperscriptBox[\(g\), 
+TagBox[
+RowBox[{"(", 
+RowBox[{"1", ",", "1"}], ")"}],
+Derivative],
+MultilineFunction->None]\)[2`, 2.2`] -> der[1, 1], 
+\!\(\*SuperscriptBox[\(g\), 
+TagBox[
+RowBox[{"(", 
+RowBox[{"1", ",", "2"}], ")"}],
+Derivative],
+MultilineFunction->None]\)[2`, 2.2`] -> der[1, 2], 
+\!\(\*SuperscriptBox[\(g\), 
+TagBox[
+RowBox[{"(", 
+RowBox[{"2", ",", "0"}], ")"}],
+Derivative],
+MultilineFunction->None]\)[2`, 2.2`] -> der[2, 0], 
+\!\(\*SuperscriptBox[\(g\), 
+TagBox[
+RowBox[{"(", 
+RowBox[{"3", ",", "0"}], ")"}],
+Derivative],
+MultilineFunction->None]\)[2`, 2.2`] -> der[3, 0]} // N), 
+   DefaultPrintPrecision -> 12]];   
+   
+ 
+
+Print["(U = 0.1, V = - 2Sqrt[6.], x = 2., y = 2.2)"];
+expr = PsiG2m1m3NOuv[0.1, -2 Sqrt[6.]]; 
+Print[(Do[
+     der[l[[1]], l[[2]]] =  
+      D[expr, {x, l[[1]]}, {y, l[[2]]}] /. {x -> 2, y -> 2.2} // 
+       N, {l, {{0, 0}, {1, 0}, {0, 1}, {2, 0}, {1, 1}, {0, 2}, {3, 
+        0}, {1, 2}}}];) // AbsoluteTiming]
+
+Print[DecimalForm[((D0[g[x, y]] /. {x -> 2, y -> 2.2} // N // 
+        Simplify) /. {g[2`, 2.2`] -> der[0, 0], 
+\!\(\*SuperscriptBox[\(g\), 
+TagBox[
+RowBox[{"(", 
+RowBox[{"0", ",", "1"}], ")"}],
+Derivative],
+MultilineFunction->None]\)[2`, 2.2`] -> der[0, 1], 
+\!\(\*SuperscriptBox[\(g\), 
+TagBox[
+RowBox[{"(", 
+RowBox[{"0", ",", "2"}], ")"}],
+Derivative],
+MultilineFunction->None]\)[2`, 2.2`] -> der[0, 2], 
+\!\(\*SuperscriptBox[\(g\), 
+TagBox[
+RowBox[{"(", 
+RowBox[{"1", ",", "0"}], ")"}],
+Derivative],
+MultilineFunction->None]\)[2`, 2.2`] -> der[1, 0],  
+\!\(\*SuperscriptBox[\(g\), 
+TagBox[
+RowBox[{"(", 
+RowBox[{"1", ",", "1"}], ")"}],
+Derivative],
+MultilineFunction->None]\)[2`, 2.2`] -> der[1, 1], 
+\!\(\*SuperscriptBox[\(g\), 
+TagBox[
+RowBox[{"(", 
+RowBox[{"1", ",", "2"}], ")"}],
+Derivative],
+MultilineFunction->None]\)[2`, 2.2`] -> der[1, 2], 
+\!\(\*SuperscriptBox[\(g\), 
+TagBox[
+RowBox[{"(", 
+RowBox[{"2", ",", "0"}], ")"}],
+Derivative],
+MultilineFunction->None]\)[2`, 2.2`] -> der[2, 0], 
+\!\(\*SuperscriptBox[\(g\), 
+TagBox[
+RowBox[{"(", 
+RowBox[{"3", ",", "0"}], ")"}],
+Derivative],
+MultilineFunction->None]\)[2`, 2.2`] -> der[3, 0]} // N), 
+   DefaultPrintPrecision -> 12]];   
+
+ 
+ 
+
+Print["(U = 0.1, V = 1/2 Sqrt[6.], x = 2., y = 2.2)"];
+expr = PsiG2m1m3NOuv[0.1, 1/2 Sqrt[6.]]; 
+Print[(Do[
+     der[l[[1]], l[[2]]] =  
+      D[expr, {x, l[[1]]}, {y, l[[2]]}] /. {x -> 2, y -> 2.2} // 
+       N, {l, {{0, 0}, {1, 0}, {0, 1}, {2, 0}, {1, 1}, {0, 2}, {3, 
+        0}, {1, 2}}}];) // AbsoluteTiming]
+
+Print[DecimalForm[((D0[g[x, y]] /. {x -> 2, y -> 2.2} // N // 
+        Simplify) /. {g[2`, 2.2`] -> der[0, 0], 
+\!\(\*SuperscriptBox[\(g\), 
+TagBox[
+RowBox[{"(", 
+RowBox[{"0", ",", "1"}], ")"}],
+Derivative],
+MultilineFunction->None]\)[2`, 2.2`] -> der[0, 1], 
+\!\(\*SuperscriptBox[\(g\), 
+TagBox[
+RowBox[{"(", 
+RowBox[{"0", ",", "2"}], ")"}],
+Derivative],
+MultilineFunction->None]\)[2`, 2.2`] -> der[0, 2], 
+\!\(\*SuperscriptBox[\(g\), 
+TagBox[
+RowBox[{"(", 
+RowBox[{"1", ",", "0"}], ")"}],
+Derivative],
+MultilineFunction->None]\)[2`, 2.2`] -> der[1, 0],  
+\!\(\*SuperscriptBox[\(g\), 
+TagBox[
+RowBox[{"(", 
+RowBox[{"1", ",", "1"}], ")"}],
+Derivative],
+MultilineFunction->None]\)[2`, 2.2`] -> der[1, 1], 
+\!\(\*SuperscriptBox[\(g\), 
+TagBox[
+RowBox[{"(", 
+RowBox[{"1", ",", "2"}], ")"}],
+Derivative],
+MultilineFunction->None]\)[2`, 2.2`] -> der[1, 2], 
+\!\(\*SuperscriptBox[\(g\), 
+TagBox[
+RowBox[{"(", 
+RowBox[{"2", ",", "0"}], ")"}],
+Derivative],
+MultilineFunction->None]\)[2`, 2.2`] -> der[2, 0], 
+\!\(\*SuperscriptBox[\(g\), 
+TagBox[
+RowBox[{"(", 
+RowBox[{"3", ",", "0"}], ")"}],
+Derivative],
+MultilineFunction->None]\)[2`, 2.2`] -> der[3, 0]} // N), 
+   DefaultPrintPrecision -> 12]];   
+
+ 
+ 
+Print["(U = 0.1, V = -1/2 Sqrt[6.], x = 2., y = 2.2)"];
+expr = PsiG2m1m3NOuv[0.1, -1/2 Sqrt[6.]]; 
+Print[(Do[
+     der[l[[1]], l[[2]]] =  
+      D[expr, {x, l[[1]]}, {y, l[[2]]}] /. {x -> 2, y -> 2.2} // 
+       N, {l, {{0, 0}, {1, 0}, {0, 1}, {2, 0}, {1, 1}, {0, 2}, {3, 
+        0}, {1, 2}}}];) // AbsoluteTiming]
+
+Print[DecimalForm[((D0[g[x, y]] /. {x -> 2, y -> 2.2} // N // 
+        Simplify) /. {g[2`, 2.2`] -> der[0, 0], 
+\!\(\*SuperscriptBox[\(g\), 
+TagBox[
+RowBox[{"(", 
+RowBox[{"0", ",", "1"}], ")"}],
+Derivative],
+MultilineFunction->None]\)[2`, 2.2`] -> der[0, 1], 
+\!\(\*SuperscriptBox[\(g\), 
+TagBox[
+RowBox[{"(", 
+RowBox[{"0", ",", "2"}], ")"}],
+Derivative],
+MultilineFunction->None]\)[2`, 2.2`] -> der[0, 2], 
+\!\(\*SuperscriptBox[\(g\), 
+TagBox[
+RowBox[{"(", 
+RowBox[{"1", ",", "0"}], ")"}],
+Derivative],
+MultilineFunction->None]\)[2`, 2.2`] -> der[1, 0],  
+\!\(\*SuperscriptBox[\(g\), 
+TagBox[
+RowBox[{"(", 
+RowBox[{"1", ",", "1"}], ")"}],
+Derivative],
+MultilineFunction->None]\)[2`, 2.2`] -> der[1, 1], 
+\!\(\*SuperscriptBox[\(g\), 
+TagBox[
+RowBox[{"(", 
+RowBox[{"1", ",", "2"}], ")"}],
+Derivative],
+MultilineFunction->None]\)[2`, 2.2`] -> der[1, 2], 
+\!\(\*SuperscriptBox[\(g\), 
+TagBox[
+RowBox[{"(", 
+RowBox[{"2", ",", "0"}], ")"}],
+Derivative],
+MultilineFunction->None]\)[2`, 2.2`] -> der[2, 0], 
+\!\(\*SuperscriptBox[\(g\), 
+TagBox[
+RowBox[{"(", 
+RowBox[{"3", ",", "0"}], ")"}],
+Derivative],
+MultilineFunction->None]\)[2`, 2.2`] -> der[3, 0]} // N), 
+   DefaultPrintPrecision -> 12]];    
 
 Exit[]
