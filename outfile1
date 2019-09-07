@@ -1,0 +1,15 @@
+Mathematica 11.1.1 Kernel for Linux x86 (64-bit)
+Copyright 1988-2017 Wolfram Research, Inc.
+The size of PsiA2m2 is: 121728
+Computations: 
+(U = 3 Sqrt[2.], V = 0.1, x = 2., y = 2.2)
+The size of PsiA2m2NOuv[3 Sqrt[2.], 0.1] is: 5424
+                                9
+{2544.85, DecimalForm[3.15068 10 , DefaultPrintPrecision -> 12]}
+(U = 0.1, V = Sqrt[6.], x = 2., y = 2.2)
+                    10
+{3088.41, 3.48137 10  }
+(U = 0.1, V = -Sqrt[6.], x = 2., y = 2.2)
+                    10
+{3418.58, 3.48137 10  }
+(U = 0.1, V = 2Sqrt[6.], x = 2., y = 2.2)
