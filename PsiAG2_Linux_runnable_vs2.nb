@@ -247,7 +247,7 @@ RowBox[{"(",
 RowBox[{"3", ",", "0"}], ")"}],
 Derivative],
 MultilineFunction->None]\)[2`, 2.2`] -> der[3, 0]} ), 3]
-   ], {val, {0.5 Sqrt[2.]}}]]
+   ], {val, {0.5 Sqrt[2.]}}]] // Print
 
  
 
