@@ -10,7 +10,7 @@ do
 
     code="Print[2+${U[${i}]}]; 
 	Exit[]"
-
+    echo ${code}
    
    
    
