@@ -94,7 +94,6 @@ DA2m3A2m2[
          D[g, x, x, x]/Sqrt[2])/Sqrt[2]);
 
 PsiA2m3 = DA2m3A2m2[PsiA2m2]; 
-(* Print["The size of PsiA2m3 is: " <> ToString[ByteCount[PsiA2m3]]]; *)
 
 (******** Obtain the Baker-Akhiezer function PsiG2m1m3 ********)
 DG2m3m1A2m3[
@@ -134,7 +133,6 @@ DG2m3m1A2m3[
             Sqrt[2]))/Sqrt[2]);
 
 PsiG2m1m3 = DG2m3m1A2m3[PsiA2m3];
-(* Print["The size of PsiG2m1m3 is: " <> ToString[ByteCount[PsiG2m1m3]]]; *)
 
 
 (******** Obtain the Baker-Akhiezer function PsiAG2m1 evaluated at \
@@ -190,20 +188,42 @@ D0[g_] :=
          D[g, x, x, x]/Sqrt[2])/Sqrt[2]);
 
 
-Print["Computations: "];
-Print[""];
-(* Print["(U = 1/2 Sqrt[2.], V =  0.1, x = 2., y = 2.2)"]; *)
 
 PsiG2m1m3NOuv[A_, B_] := N[PsiG2m1m3 /. {U -> A, V -> B}] ;
 
-DistributeDefinitions[D0, PsiG2m1m3NOuv];
-results = WaitAll[Table[ParallelSubmit[{val},
-   expr = PsiG2m1m3NOuv[val, 0.1]; 
-   Do[der[l[[1]], l[[2]]] =  
+expr = PsiG2m1m3NOuv[U0, 0.1]; 
+
+Do[der[l[[1]], l[[2]]] =  
      D[expr, {x, l[[1]]}, {y, l[[2]]}] /. {x -> 2, y -> 2.2} // 
       N, {l, {{0, 0}, {1, 0}, {0, 1}, {2, 0}, {1, 1}, {0, 2}, {3, 
-       0}, {1, 2}}}];
-   result = N[((D0[g[x, y]] /. {x -> 2, y -> 2.2} // N // 
+       0}, {1, 2}}}]; 
+ 
+(* derx = D[expr, x]; 
+der[1, 0] = derx /. {x -> 2, y-> 2.2};
+
+dery = D[expr, y];
+der[0, 1] = dery /. {x -> 2, y -> 2.2};
+
+derxx = D[derx, x];
+der[2, 0] = derxx /. {x -> 2, y -> 2.2};
+
+deryy = D[dery, y];
+der[0, 2] = deryy /. {x -> 2, y -> 2.2};
+
+derxy = D[derx, y];
+der[1, 1] = derxy /. {x -> 2, y -> 2.2};
+
+derxxx = D[derxx, x];
+der[3, 0] = derxxx /. {x -> 2, y -> 2.2};
+
+derxyy = D[derxy, y];
+der[1, 2] = derxyy /. {x -> 2, y -> 2.2};
+
+der[0, 0] = expr /. {x -> 2, y -> 2.2}; 
+*)
+
+ 
+ans = N[((D0[g[x, y]] /. {x -> 2, y -> 2.2} // N // 
         Simplify) /. {g[2`, 2.2`] -> der[0, 0], 
 \!\(\*SuperscriptBox[\(g\), 
 TagBox[
@@ -246,14 +266,9 @@ TagBox[
 RowBox[{"(", 
 RowBox[{"3", ",", "0"}], ")"}],
 Derivative],
-MultilineFunction->None]\)[2`, 2.2`] -> der[3, 0]} ), 8];
-
-{val, result}
-   ], {val, {0.25 Sqrt[2.], -0.25 Sqrt[2.], 2.5 Sqrt[2.], -2.5 Sqrt[2.]}}]];
-
-Print[results];
-DumpSave["results.mx", results];   
+MultilineFunction->None]\)[2`, 2.2`] -> der[3, 0]} ), 10];
 
  
+Print["(U = " <> ToString[U0] <> ", V =  0.1, x = 2., y = 2.2)\n" <> ToString[N[ans, 10]]]; 
 
 Exit[]
