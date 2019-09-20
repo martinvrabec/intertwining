@@ -22,3 +22,39 @@
 3.191885593381047*^8
 
 
+Mathematica 11.1.1 Kernel for Linux x86 (64-bit)
+Copyright 1988-2017 Wolfram Research, Inc.
+Mathematica 11.1.1 Kernel for Linux x86 (64-bit)
+Copyright 1988-2017 Wolfram Research, Inc.
+Mathematica 11.1.1 Kernel for Linux x86 (64-bit)
+Copyright 1988-2017 Wolfram Research, Inc.
+Mathematica 11.1.1 Kernel for Linux x86 (64-bit)
+Copyright 1988-2017 Wolfram Research, Inc.
+Mathematica 11.1.1 Kernel for Linux x86 (64-bit)
+Copyright 1988-2017 Wolfram Research, Inc.
+Mathematica 11.1.1 Kernel for Linux x86 (64-bit)
+Copyright 1988-2017 Wolfram Research, Inc.
+(U = -2*Sqrt[2], V = 32, x = 0.5, y = -1)
+6.634515425638021*^8
+
+
+(U = 2*Sqrt[2], V = 32, x = 0.5, y = -1)
+6.634515425638056*^8
+
+
+(U = -3*Sqrt[2], V = 32, x = 0.5, y = -1)
+5.503613207349589*^8
+
+
+(U = -Sqrt[2], V = 32, x = 0.5, y = -1)
+7.467315578405852*^8
+
+
+(U = Sqrt[2], V = 32, x = 0.5, y = -1)
+7.467315578405842*^8
+
+
+(U = 3*Sqrt[2], V = 32, x = 0.5, y = -1)
+5.503613207349756*^8
+
+
