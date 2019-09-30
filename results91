@@ -1,0 +1,20 @@
+Mathematica 11.1.1 Kernel for Linux x86 (64-bit)
+Copyright 1988-2017 Wolfram Research, Inc.
+Mathematica 11.1.1 Kernel for Linux x86 (64-bit)
+Copyright 1988-2017 Wolfram Research, Inc.
+Mathematica 11.1.1 Kernel for Linux x86 (64-bit)
+Copyright 1988-2017 Wolfram Research, Inc.
+Mathematica 11.1.1 Kernel for Linux x86 (64-bit)
+Copyright 1988-2017 Wolfram Research, Inc.
+(U = 2*Sqrt[2], V = 44, x = 0.7, y = -1)
+5166.176652956667
+
+
+(U = Sqrt[2], V = 44, x = 0.7, y = -1)
+6893.377679057159
+
+
+(U = -Sqrt[2], V = 44, x = 0.7, y = -1)
+6893.377679057159
+
+
